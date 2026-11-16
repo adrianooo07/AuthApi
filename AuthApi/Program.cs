@@ -22,9 +22,9 @@ namespace AuthApi
             builder.Services.AddScoped<PasswordHasher>();
             builder.Services.AddScoped<GenerateToken>();
 
-            var secret = "ide-jon-a-szoveg-a-token-generalasahoz";
-            var issuer = "auth.api";
-            var audience = "auth-client";
+            var secret = builder.Configuration.GetSection("Token:secret").Value;
+            var issuer = builder.Configuration.GetSection("Token:issuer").Value;
+            var audience = builder.Configuration.GetSection("Token:audience").Value;
 
             var key = Encoding.ASCII.GetBytes(secret);
 

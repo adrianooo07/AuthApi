@@ -8,6 +8,13 @@ namespace AuthApi.Services
 {
     public class GenerateToken
     {
+        private readonly IConfiguration _configuration;
+
+        public GenerateToken(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public string Token(Guid id, string email, ICollection<Role> role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
