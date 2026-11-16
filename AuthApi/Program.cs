@@ -21,6 +21,7 @@ namespace AuthApi
 
             builder.Services.AddScoped<PasswordHasher>();
             builder.Services.AddScoped<GenerateToken>();
+            builder.Services.AddScoped <IConfiguration>();
 
             var secret = builder.Configuration.GetSection("Token:secret").Value;
             var issuer = builder.Configuration.GetSection("Token:issuer").Value;

@@ -18,7 +18,7 @@ namespace AuthApi.Services
         public string Token(Guid id, string email, ICollection<Role> role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("ide-jon-a-szoveg-a-token-generalasahoz");
+            var key = Encoding.ASCII.GetBytes(_configuration.GetSection("Token:secret").Value);
 
             var claimList = new List<Claim>
             {
@@ -33,8 +33,8 @@ namespace AuthApi.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Audience = "auth-client",
-                Issuer = "auth.api",
+                Audience = _configuration.GetSection("Token:client").Value,
+                Issuer = _configuration.GetSection("Token:audience").Value,
                 Subject = new ClaimsIdentity(claimList),
                 Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
